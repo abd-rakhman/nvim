@@ -118,6 +118,12 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Resize windows with CTRL+<hjkl>
+vim.keymap.set("n", "=", [[<cmd>vertical resize +5<cr>]]) -- make the window biger vertically
+vim.keymap.set("n", "-", [[<cmd>vertical resize -5<cr>]]) -- make the window smaller vertically
+vim.keymap.set("n", "+", [[<cmd>horizontal resize +2<cr>]]) -- make the window bigger horizontally by pressing shift and =
+vim.keymap.set("n", "_", [[<cmd>horizontal resize -2<cr>]]) -- make the window smaller horizontally by pressing shift and -
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -960,5 +966,15 @@ require("auto-save").setup({
 	debug = false,
 })
 
+-- Set tab size for React files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	callback = function()
+		vim.bo.tabstop = 2
+		vim.bo.shiftwidth = 2
+		vim.bo.expandtab = true
+	end,
+	desc = "Set tab size for React files",
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
