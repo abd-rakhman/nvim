@@ -194,6 +194,14 @@ require("lazy").setup({
 
 	{ "zbirenbaum/copilot.lua" },
 	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
+	{
 		"okuuva/auto-save.nvim",
 		cmd = "ASToggle", -- optional for lazy loading on command
 		event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
@@ -976,5 +984,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 	desc = "Set tab size for React files",
 })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
